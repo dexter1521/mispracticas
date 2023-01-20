@@ -24,8 +24,8 @@ class Welcome_model extends CI_Model {
     public function fetch($id)
     {
         $rstQuery = $this->db->get_where($this->table, array('id_preregistro' => $id));
+        #$result = $rstQuery->row_array();
         return $rstQuery->result_array();
-        
     }
 
     public function update($id, $data){

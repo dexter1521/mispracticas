@@ -1,21 +1,19 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
-
-	
+class Welcome extends CI_Controller
+{
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Welcome_model'); //aqui cargamos nuetro modelo
+		//aqui cargamos nuetro modelo
+		$this->load->model('Welcome_model'); 
 		// include 
 	}
-	
+
 
 	public function index()
 	{
 		$this->load->view('welcome_message');
-		
 	}
 
 	public function listar()
@@ -26,9 +24,13 @@ class Welcome extends CI_Controller {
 	}
 
 
-	public function registrar(){
+	public function registrar()
+	{
 		#print_r($_POST);
 		#var_dump($_POST);
+		#print_r($this->input->post());
+		#exit();
+		#die();
 
 		$datos = array(
 			'nombre' => trim($this->input->post('nombre')),
@@ -36,28 +38,23 @@ class Welcome extends CI_Controller {
 			'amaterno' => $this->input->post('amaterno'),
 			'correo' => $this->input->post('email'),
 			'contrasenia' => $this->input->post('pwd')
-			);
-
+		);
 
 		$result = $this->Welcome_model->insert($datos);
 		if ($result == TRUE) {
 			# code...
-			echo 'Registro Exitoso';
+			#echo 'Registro Exitoso';
 			redirect('Welcome/listar');
-		}else{
+		} else {
 			echo 'Contacta a soporte';
 		}
-
-		
-
-	
 	}
 
 
 	public function actualizar($id)
 	{
 		$data['preregistro'] = $this->Welcome_model->fetch($id);
-	#	var_dump($data);exit();
+		#	var_dump($data);exit();
 		$this->load->view('view_editar', $data);
 	}
 
@@ -70,18 +67,15 @@ class Welcome extends CI_Controller {
 			'amaterno' => $this->input->post('amaterno'),
 			'correo' => $this->input->post('email'),
 			'contrasenia' => $this->input->post('pwd')
-			);
+		);
 
-			$id = $this->input->post('id_preregistro');
+		$id = $this->input->post('id_preregistro');
 
 		$result = $this->Welcome_model->update($id, $datos);
 		if ($result == TRUE) {
 			redirect('Welcome/listar');
-		}else{
+		} else {
 			echo 'Contacta a soporte';
 		}
 	}
-
-	
-
 }
