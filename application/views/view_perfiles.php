@@ -3,30 +3,15 @@
     <p>The .table-hover class enables a hover state on table rows:</p>
     <!-- Trigger the modal with a button -->
     <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Open Modal</button>
-    <table class="table table-hover">
+    <table class="table table-hover" id="myTable">
         <thead>
             <tr>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>John</td>
-                <td>Doe</td>
-                <td>john@example.com</td>
-            </tr>
-            <tr>
-                <td>Mary</td>
-                <td>Moe</td>
-                <td>mary@example.com</td>
-            </tr>
-            <tr>
-                <td>July</td>
-                <td>Dooley</td>
-                <td>july@example.com</td>
-            </tr>
         </tbody>
     </table>
 </div>
@@ -79,13 +64,27 @@
                 //contentType: false,
                 //processData: false,
                 dataType: 'json',
-                success: function(data) {
+                success: function(respuesta) {
                     // var data = JSON.parse(respuesta);
+                    $('#myModal').modal('hide');
+                    $("form")[0].reset();
+                    console.log(respuesta);
 
                 }
             })
 
         });
+
+        $('#myTable').DataTable({
+        ajax: {
+            url: '<?php echo base_url('Perfiles/listar') ?>',
+            dataSrc: '',
+        },
+        columns: [
+            { data: 'id_perfil' },
+            { data: 'nombre_perfil' },
+        ],
+    });
 
     });
 </script>
