@@ -97,4 +97,34 @@ class Welcome extends CI_Controller
 			echo 'Contacta a soporte';
 		}
 	}
+
+	public function envioCorreo()
+	{
+		#$this->load->library('email');
+		//SMTP & mail configuration
+        $config = array(
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.gmail.com',
+            'smtp_port' => 465,
+            'smtp_user' => 'desarrollo.tsjmorelos@gmail.com',
+            'smtp_pass' => 'qffckzhmbutpeizd',
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n",
+            'crlf' => "\r\n",
+            'priority' => 1,
+            'wordwrap' => TRUE,
+            'validate' => true
+        );
+
+		$htmlContent = '<h1>HTML email testing by CodeIgniter Email Library</h1>';
+        $htmlContent .= '<p>You can use any HTML tags and content in this email.</p>';
+		
+		$this->email->initialize($config);
+        $this->email->from('desarrollo.tsjmorelos@gmail.com','MisPRacticas');
+		$this->email->to('eduardo.dritec@gmail.com');
+        $this->email->subject('Test Email (HTML)');
+        $this->email->message($htmlContent);
+        $this->email->send();
+	}
 }
