@@ -6,21 +6,35 @@ class Welcome extends CI_Controller
 	{
 		parent::__construct();
 		//aqui cargamos nuetro modelo
-		$this->load->model('Welcome_model'); 
+		$this->load->model('Welcome_model');
 		// include 
 	}
 
 
 	public function index()
 	{
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('welcome_message');
+		$this->load->view('template/footer');
+	}
+
+	public function viewAdd()
+	{
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
+		$this->load->view('view_registrar');
+		$this->load->view('template/footer');
 	}
 
 	public function listar()
 	{
 		#print_r($this->Welcome_model->readData());
 		$data['preregistros'] = $this->Welcome_model->readData();
-		$this->load->view('view_registro', $data);
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
+		$this->load->view('view_listar', $data);
+		$this->load->view('template/footer');
 	}
 
 
@@ -55,7 +69,10 @@ class Welcome extends CI_Controller
 	{
 		$data['preregistro'] = $this->Welcome_model->fetch($id);
 		#	var_dump($data);exit();
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('view_editar', $data);
+		$this->load->view('template/footer');
 	}
 
 	public function update()
@@ -73,7 +90,9 @@ class Welcome extends CI_Controller
 
 		$result = $this->Welcome_model->update($id, $datos);
 		if ($result == TRUE) {
+			
 			redirect('Welcome/listar');
+			
 		} else {
 			echo 'Contacta a soporte';
 		}
