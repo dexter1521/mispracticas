@@ -24,9 +24,8 @@ class Auth extends CI_Controller
         if ($this->verificarUsuario($usuario) == true) {
             $is_session = $this->Auth_model->selectUser($usuario, $password);
             if (!$is_session) {
-                
+
                 $this->session->set_flashdata('warning', 'El usuario y/o contraseña no coinciden');
-                
             } else {
 
                 $params = array(
@@ -36,11 +35,11 @@ class Auth extends CI_Controller
                     'perfil' => 2,
                     'acceso' =>  true
                 );
-               
+
                 $this->session->set_userdata($params);
                 #print_r($this->session); // podemos verificar los valores que trae la session global
                 #$this->session->set_flashdata('success', 'Bienvendio '.$this->session->userdata('nombre'));
-                $this->session->set_flashdata('success', 'Bienvendio '.$params['nombre']);
+                $this->session->set_flashdata('success', 'Bienvendio ' . $params['nombre']);
                 redirect('Welcome');
             }
         } else {

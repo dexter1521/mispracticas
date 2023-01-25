@@ -1,13 +1,15 @@
 <?php
 
-class Welcome_model extends CI_Model {
+class Welcome_model extends CI_Model
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         #$this->load->database();
     }
 
-    private $table  = 'preregistro' ;
+    private $table  = 'preregistro';
 
     public function insert($data)
     {
@@ -28,10 +30,10 @@ class Welcome_model extends CI_Model {
         return $rstQuery->result_array();
     }
 
-    public function update($id, $data){
+    public function update($id, $data)
+    {
         $this->db->where('id_preregistro', $id);
         $isOkey = $this->db->update($this->table, $data);
         return ($isOkey == true) ? true : false;
     }
-
 }

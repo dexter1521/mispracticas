@@ -14,10 +14,12 @@ class Auth_model extends CI_Model
     {
         #print_r($usuario, $password); exit(); //Esta podria ser una forma de validar que estamos llegando  al modelo
         //$rstQuery = $this->db->get_where($this->table, array('correo' => $usuario, 'contrasenia' => $password ));
-        $rstQuery = $this->db->get_where($this->table, 
-                                        array('correo' => $usuario));
+        $rstQuery = $this->db->get_where(
+            $this->table,
+            array('correo' => $usuario)
+        );
         if ($rstQuery->num_rows() == 1) {
-            $result = $rstQuery->row_array();    
+            $result = $rstQuery->row_array();
             if (password_verify($password, $result['contrasenia']) == true) {
                 #print_r($result); exit();
                 return $result;
@@ -32,11 +34,11 @@ class Auth_model extends CI_Model
 
     public function logAcceeso()
     {
-
     }
 
     public function verificaExistencia($usuario)
     {
+        //aqui podemos comprobar que están llegando los datos al modelos
         #print_r($usuario, $password); exit();
 
         $rstQuery = $this->db->get_where($this->table, array('correo' => $usuario));

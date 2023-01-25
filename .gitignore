@@ -4,9 +4,9 @@ application/cache/*
 !application/cache/index.html
 
 application/logs/*
-!application/logs/index.html
+#!application/logs/index.html
 
-!application/*/.htaccess
+#!application/*/.htaccess
 
 composer.lock
 tests/mocks/database/ci_test.sqlite
