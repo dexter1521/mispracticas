@@ -1,8 +1,8 @@
 <div class="container">
-    <h2>Hover Rows</h2>
-    <p>The .table-hover class enables a hover state on table rows:</p>
+    <h2>Catalogo de Perfiles</h2>
+    <p>aqui podemos agregar un texto</p>
     <!-- Trigger the modal with a button -->
-    <button type="button" class="btn btn-info btn-md" data-toggle="modal" data-target="#myModal">Open Modal</button>
+    <button type="button" class="btn btn-info btn-xs " data-toggle="modal" data-target="#myModal">Registrar</button>
     <table class="table table-hover" id="myTable">
         <thead>
             <tr>
@@ -75,16 +75,39 @@
 
         });
 
+        /* $('#myTable').DataTable({
+            ajax: {
+                url: '<?php #echo base_url('Perfiles/listar') ?>',
+                dataSrc: '',
+            },
+            columns: [{
+                    data: 'id_perfil'
+                },
+                {
+                    data: 'nombre_perfil'
+                },
+            ],
+        }); */
+
         $('#myTable').DataTable({
-        ajax: {
-            url: '<?php echo base_url('Perfiles/listar') ?>',
-            dataSrc: '',
-        },
-        columns: [
-            { data: 'id_perfil' },
-            { data: 'nombre_perfil' },
-        ],
-    });
+            /* "processing": true,
+            "serverSide": true,
+            "ordering": false,
+            "responsive": true,
+            dom: 'Bfrtip',
+            buttons: [
+                'excelHtml5'
+            ], */
+            "ajax": {
+                url: '<?php echo base_url('Perfiles/listar') ?>',
+                type: 'POST'
+            },
+            /* "columnDefs": [{
+                "targets": [0],
+                "orderable": false,
+
+            }, ], */
+        });
 
     });
 </script>
