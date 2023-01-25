@@ -28,18 +28,37 @@ class Perfiles extends CI_Controller
 
         //echo $this->input->post('perfil');
 
-        $datos = array(
-            'nombre_perfil' => trim($this->input->post('perfil'))
-        );
-
-        $response = $this->Perfiles_model->insert($datos);
-        if ($response == TRUE) {
+        
+        if ($this->input->post('acction') == 'editar') {
             # code...
-            echo  json_encode("Regitro exitoso");
-        } else {
+            $datos = array(
+                'nombre_perfil' => trim($this->input->post('perfil'))
+            );
+            $id  = $this->input->post('id_perfil');
+            $response = $this->Perfiles_model->update($id, $datos);
+            if ($response == TRUE) {
+                # code...
+                echo  json_encode("Actualizado correctamente");
+            } else {
+    
+                echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
+            }
 
-            echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
+        }else{
+            $datos = array(
+                'nombre_perfil' => trim($this->input->post('perfil'))
+            );
+            $response = $this->Perfiles_model->insert($datos);
+            if ($response == TRUE) {
+                # code...
+                echo  json_encode("Regitro exitoso");
+            } else {
+    
+                echo  json_encode("No fue posible realizar el resgistro, conacta a soporte");
+            }
         }
+
+        
     }
 
     public function listar()
@@ -49,12 +68,18 @@ class Perfiles extends CI_Controller
         $data = array();
 
         foreach ($objLista as $key) {
-            $eliminar = '<div class="btn-group"> <a href="#" class="btn btn-danger "><span class="glyphicon glyphicon-trash"></span></a>';
-            $actualizar = '<a href="#" class="btn btn-warning "><span class="glyphicon glyphicon-edit"></span></a> </div>';
+            $botones = '<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Acciones <span class="caret"></span></button>
+			<ul class="dropdown-menu">
+			<button class="btn btn-info btn-sm btn-block update" id="' . $key['id_perfil'] . ' ">Actualizar</button>
+            <button class="btn btn-primart btn-sm btn-block " onclick="updateData(' . $key['id_perfil'] . ')">Actualizar2</button>
+			</ul>
+				  </div>';
+
             $row = array();
             $row[] = $key['id_perfil'];
             $row[] = $key['nombre_perfil'];
-            $row[] = $eliminar . $actualizar;
+            $row[] = $botones;
             $data[] = $row;
         }
         $result  = array('data' => $data);
@@ -72,4 +97,13 @@ class Perfiles extends CI_Controller
         $result  = array('data' => $arreglo);
         echo json_encode($result); */
     }
+
+    public function actualizar()
+	{
+        $idback =  $this->input->post('idback');
+		$data = $this->Perfiles_model->fetch($idback);
+        //print_r($data);
+        echo json_encode($data);
+		
+	}
 }

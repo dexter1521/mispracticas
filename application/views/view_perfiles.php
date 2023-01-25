@@ -32,6 +32,8 @@
                         <label for="perfil">Nombre del Perfil:</label>
                         <input type="text" class="form-control" id="perfil" name="perfil">
                     </div>
+                    <input type="hidden" name="id_perfil" id="id_perfil" >
+                    <input type="hidden" name="acction" id="acction" value="nuevo">
                     <button type="button" class="btn btn-success" id="save"> Guardar</button>
                 </form>
             </div>
@@ -54,8 +56,8 @@
             // evitar lo que pasaría por default
             e.preventDefault();
 
-            alert($("form").serialize());
-
+            //alert($("form").serialize());
+            
             $.ajax({
                 url: "<?php echo base_url('Perfiles/registrar') ?>",
                 method: 'POST',
@@ -74,20 +76,6 @@
             })
 
         });
-
-        /* $('#myTable').DataTable({
-            ajax: {
-                url: '<?php #echo base_url('Perfiles/listar') ?>',
-                dataSrc: '',
-            },
-            columns: [{
-                    data: 'id_perfil'
-                },
-                {
-                    data: 'nombre_perfil'
-                },
-            ],
-        }); */
 
         $('#myTable').DataTable({
             /* "processing": true,
@@ -109,5 +97,47 @@
             }, ], */
         });
 
+    });
+
+    function updateData(valor) {
+        //alert(valor)
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/actualizar') ?>",
+            method: 'POST',
+            data: {idback : valor},
+            dataType: 'json',
+            success: function(respuesta) {
+                $('#myModal').modal('show');
+                $('#perfil').val(respuesta.nombre_perfil);
+                $('#id_perfil').val(respuesta.id_perfil);
+                $('#acction').val('editar');
+                
+
+            }
+        })
+    }
+
+    $(document).on('click', '.update', function() {
+
+        var idfront = $(this).attr("id");
+        //alert(id)
+        $.ajax({
+            url: "<?php echo base_url('Perfiles/actualizar') ?>",
+            method: 'POST',
+            data: {idback : idfront},
+            dataType: 'json',
+            success: function(respuesta) {
+                //comprobamos la respuesta del back
+                //console.log(respuesta)
+                //en ocasiones es necesario parsear la respuesta 
+                //var data = JSON.parse(respuesta);
+                $('#myModal').modal('show');
+                $('#perfil').val(respuesta.nombre_perfil);
+                $('#id_perfil').val(respuesta.id_perfil);
+                $('#acction').val('editar');
+                
+
+            }
+        })
     });
 </script>
