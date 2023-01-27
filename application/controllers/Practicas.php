@@ -29,11 +29,11 @@ class Practicas extends CI_Controller
                 'rules' => 'required|trim|max_length[50]|regex_match[/^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ,.]*$/u]'
             ),
             array(
-                'field' => 'a_paterno', 'label' => 'Apellido Paterno',
+                'field' => 'apaterno', 'label' => 'Apellido Paterno',
                 'rules' => 'required|trim|max_length[30]|regex_match[/^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ,.]*$/u]'
             ),
             array(
-                'field' => 'a_materno', 'label' => 'Apellido Materno',
+                'field' => 'amaterno', 'label' => 'Apellido Materno',
                 'rules' => 'required|trim|max_length[30]|regex_match[/^[a-zñáéíóúüA-ZÑÁÉÍÓÚÜ ,.]*$/u]'
             ),
             array(
