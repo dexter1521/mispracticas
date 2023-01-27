@@ -49,7 +49,6 @@ class Practicas extends CI_Controller
                 'rules' => 'required|trim|min_length[8]|max_length[8]|matches[pwd]'
             )
         );
-        //$this->form_validation->set_rules('nombre', 'nombre', 'required|trim');
         $this->form_validation->set_rules($config);
         $this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
         if ($this->form_validation->run() == FALSE) {
@@ -66,15 +65,15 @@ class Practicas extends CI_Controller
                 'correo' => $this->input->post('email'),
                 'contrasenia' => $this->input->post('pwd')
             );
-            exit();
+            /* exit();
             $result = $this->Welcome_model->insert($datos);
-            if ($result == TRUE) {
-                # code...
-                #echo 'Registro Exitoso';
-                redirect('Welcome/listar');
-            } else {
-                echo 'Contacta a soporte';
-            }
+            if ($result == TRUE) { */
+                $messageData["success"] = true;
+                $messageData["messages"] = '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Registro Exitoso</div>';
+           /*  } else {
+                $messageData["success"] = false;
+                $messageData["messages"] = '<div class="alert alert-warning alert-dismissible" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Problema al registrar</div>';  
+            } */
         }
 
         echo json_encode($messageData);

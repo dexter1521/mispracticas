@@ -51,8 +51,8 @@
             <div class="row">
                 <div class="col-sm-6">
                     <h2>Validando datos</h2>
+                    <span id="msg-data"></span>
                     <form id="frmRegistro">
-                        <?php echo validation_errors(); ?>
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
                             <input type="text" class="form-control" id="nombre" name="nombre">
@@ -80,7 +80,9 @@
                         <button type="submit" class="btn btn-success">Guardar</button>
                     </form>
                 </div>
-                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                </div>
+
             </div>
     </div>
 
@@ -114,13 +116,40 @@
                 method: 'post',
                 data: dataString,
                 success: function(response) {
-                    console.log(response)
+
+                    //console.log(response)
+                    $('.form-group').removeClass('has-error').removeClass('has-success');
+                    $('.text-danger').remove();
+
+                    var data = JSON.parse(response);
+                    if (data.success == true) {
+                        $("#msg-data").html(data.messages);
+                        limpiarFormAdd();
+                    } else {
+                        $.each(data.messages, function(key, value) {
+                            var element = $('#' + key);
+                            element.closest('div.form-group')
+                                .removeClass('has-error')
+                                .addClass(value.length > 0 ? 'has-error' :
+                                    'has-success')
+                                .find('.text text-danger')
+                                .remove();
+                            element.after(value);
+                        });
+                    }
                 }
             })
         });
 
 
     });
+
+    function limpiarFormAdd() {
+        setTimeout(function() {
+            $("#msg-data").hide("slow");
+        }, 2000);
+        $("#frmRegistro")[0].reset();
+    }
 
     function operaciones() {
         var a = parseInt(document.getElementById('numero1').value);
