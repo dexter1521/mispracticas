@@ -47,6 +47,41 @@
                     </form>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Validando datos</h2>
+                    <form id="frmRegistro">
+                        <?php echo validation_errors(); ?>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre">
+                        </div>
+                        <div class="form-group">
+                            <label for="apaterno">Apellido Paterno:</label>
+                            <input type="text" class="form-control" id="apaterno" name="apaterno">
+                        </div>
+                        <div class="form-group">
+                            <label for="amaterno">Apellido Materno:</label>
+                            <input type="text" class="form-control" id="amaterno" name="amaterno">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" id="pwd" name="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd2">Password:</label>
+                            <input type="password" class="form-control" id="pwd2" name="pwd2">
+                        </div>
+                        <button type="submit" class="btn btn-success">Guardar</button>
+                    </form>
+                </div>
+                <div class="col-sm-6"></div>
+            </div>
     </div>
 
 </body>
@@ -69,6 +104,21 @@
         //var numero2 = 5;
         //var suma = numero1 + numero2;
         //alert('el valor de la suma es '+suma)
+
+        $('#frmRegistro').on("submit", function(e) {
+            e.preventDefault();
+            let dataString = $('#frmRegistro').serialize();
+            // alert(dataString)
+            $.ajax({
+                url: "<?php echo base_url('Practicas/registrar') ?>",
+                method: 'post',
+                data: dataString,
+                success: function(response) {
+                    console.log(response)
+                }
+            })
+        });
+
 
     });
 
@@ -100,8 +150,8 @@
 
         setTimeout(function() {
             //$('#mensajes').hide("slow");
-             //$('#mensajes > div').removeClass('alert alert-success');
-             //$('#mensajes').html('');
+            //$('#mensajes > div').removeClass('alert alert-success');
+            //$('#mensajes').html('');
             //$("#mensajes").removeAttr("style").none();
             //$("#mensajes").show();
             limpiar()
@@ -112,11 +162,11 @@
     }
 
     function limpiar() {
-        $('#mensajes').html('<div class="alert alert-info">'+
-                            '<strong>Hola!</strong> Selecciona un tipo de operación.'+
-                        '</div>');
-       // document.getElementById('numero1').value = "";
-       // document.getElementById('numero2').value = "";
+        $('#mensajes').html('<div class="alert alert-info">' +
+            '<strong>Hola!</strong> Selecciona un tipo de operación.' +
+            '</div>');
+        // document.getElementById('numero1').value = "";
+        // document.getElementById('numero2').value = "";
 
         document.getElementById("formulario").reset();
 
