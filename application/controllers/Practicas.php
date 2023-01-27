@@ -42,11 +42,11 @@ class Practicas extends CI_Controller
             ),
             array(
                 'field' => 'pwd', 'label' => 'Contraseña',
-                'rules' => 'required|trim|min_length[8]'
+                'rules' => 'required|trim|min_length[8]|max_length[8]'
             ),
             array(
                 'field' => 'pwd2', 'label' => 'Contraseña',
-                'rules' => 'required|trim|min_length[8]|matches[contrasena]'
+                'rules' => 'required|trim|min_length[8]|max_length[8]|matches[pwd]'
             )
         );
         //$this->form_validation->set_rules('nombre', 'nombre', 'required|trim');
