@@ -41,7 +41,13 @@ class ListaTareas{
             </li>
         `;
     }
-    
+
+    elimiinaTrea(evento, indice)
+    {
+        evento.prevenDefault();
+        this.tareas.splice(indice, 1);
+        this.caragarTareas
+    }
 
 }
 
